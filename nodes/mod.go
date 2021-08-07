@@ -1,4 +1,4 @@
-package main
+package nodes
 
 import (
 	"github.com/comhttp/jorm/pkg/utl"

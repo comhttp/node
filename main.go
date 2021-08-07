@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/comhttp/node/nodes"
 	daemon "github.com/leprosus/golang-daemon"
 	"github.com/sirupsen/logrus"
 	"os"
@@ -72,9 +73,9 @@ func main() {
 
 func mainLoop(coin string) {
 
-	n := NewJORMnode(coin)
+	n := nodes.NewJORMnode(coin)
 
-	GetBitNodes(n.JDB)
+	nodes.GetBitNodes(n.JDB)
 	ticker := time.NewTicker(23 * time.Second)
 	quit := make(chan struct{})
 	go func() {
