@@ -7,16 +7,19 @@ import (
 )
 
 type JORMnode struct {
-	Coin string
-	JDB  *jdb.JDB
+	Coin   string
+	JDB    *jdb.JDB
+	config cfg.Config
 }
 
 func NewJORMnode(coin string) *JORMnode {
-	err := cfg.CFG.Read("conf", "conf", &cfg.C)
+	n := new(JORMnode)
+	c, _ := cfg.NewCFG(n.config.Path, nil)
+	n.config = cfg.Config{}
+	err := c.Read("conf", "conf", &n.config)
 	utl.ErrorLog(err)
-	j := &JORMnode{
-		Coin: coin,
-		JDB:  jdb.NewJDB(cfg.C.JDBservers),
-	}
-	return j
+	n.Coin = coin
+	// n.JDB=  jdb.NewJDB(cfg.C.JDBservers)
+
+	return n
 }

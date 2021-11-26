@@ -2,7 +2,7 @@ package nodes
 
 import (
 	"fmt"
-	"github.com/comhttp/jorm/pkg/cfg"
+
 	"github.com/comhttp/jorm/pkg/jdb"
 	"github.com/comhttp/jorm/pkg/utl"
 )
@@ -55,9 +55,9 @@ func GetNode(j *jdb.JDB, c, ip string) map[string]interface{} {
 	return node
 }
 
-func (b *BitNode) getNode(j *jdb.JDB, bn *BitNoded, c string) {
-	b.Jrc = utl.NewClient(cfg.C.RPC.Username, cfg.C.RPC.Password, b.IP, b.Port)
-	s := b.GetBitNodeStatus()
+func (b *BitNode) getNode(j *jdb.JDB, bn *BitNoded, username, password, c string) {
+	b.Jrc = utl.NewClient(username, password, b.IP, b.Port)
+	s := b.GetBitNodeStatus(username, password)
 	j.Write("nodes", c+"_"+b.IP, s)
 
 	j.Write("info", c+"_mempool", s.GetRawMemPool)
